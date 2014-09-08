@@ -12,7 +12,13 @@ public class BasicTrieNode {
 	public BasicTrieNode() {
 		children = new ArrayList<BasicTrieNode>();
 		isMarkerNode = false;
-		setValue("");
+		value = "";
+	}
+	
+	public BasicTrieNode(String value) {
+		children = new ArrayList<BasicTrieNode>();
+		isMarkerNode = false;
+		this.value = value;
 	}
 
 	public boolean isLeafNode() {
