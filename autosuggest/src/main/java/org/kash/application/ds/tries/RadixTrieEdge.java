@@ -5,6 +5,16 @@ public class RadixTrieEdge {
 	private RadixTrieNode targetNode;
 	private String label;
 	
+	public RadixTrieEdge(String label) {
+		this.label = label;
+		targetNode = new RadixTrieNode();
+	}
+	
+	public RadixTrieEdge (String label, RadixTrieNode targetNode) {
+		this.label = label;
+		this.targetNode = targetNode;
+	}
+	
 	public RadixTrieNode getTargetNode() {
 		return targetNode;
 	}

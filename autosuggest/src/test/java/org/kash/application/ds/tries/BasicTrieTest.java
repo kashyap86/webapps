@@ -1,5 +1,7 @@
 package org.kash.application.ds.tries;
 
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -68,6 +70,28 @@ public class BasicTrieTest {
 		Assert.assertEquals(true, basicTrie.deleteWord("guilts"));
 		Assert.assertEquals(false, basicTrie.lookupWord("guilts"));
 		Assert.assertEquals(true, basicTrie.lookupWord("guilty"));
+	}
+	
+	@Test
+	public void possibleWords() {
+		basicTrie.insertWord("people");
+		basicTrie.insertWord("peer");
+		basicTrie.insertWord("peek");
+		basicTrie.insertWord("pear");
+		basicTrie.insertWord("peak");
+		basicTrie.insertWord("place");
+		basicTrie.insertWord("plastic");
+		List<String> possibleWords = basicTrie.traverseTrieForPossibleWords("pl");
+		Assert.assertEquals(true, possibleWords.contains("place"));
+		possibleWords = basicTrie.traverseTrieForPossibleWords("pe");
+		Assert.assertEquals(true, possibleWords.contains("peer"));
+	}
+	
+	@Test
+	public void getNodeForInputString() {
+		basicTrie.insertWord("people");
+		BasicTrieNode node = basicTrie.getNodeForInputString("peo");
+		Assert.assertEquals("o", node.getValue());
 	}
 	
 	@After

@@ -1,5 +1,7 @@
 package org.kash.application.ds.tries;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class BasicTrie {
@@ -58,6 +60,46 @@ public class BasicTrie {
 			if(curNode == null)
 				break;
 		}
+		return curNode;
+	}
+	
+	private BasicTrieNode traverseTrieForInputString(String s, BasicTrieNode curNode) {
+		for(int i = 0; i<s.length(); i++) {
+			curNode = getChildNodeByVal(s, curNode, i);
+		}
+		return curNode;
+	}
+	
+	public List<String> traverseTrieForPossibleWords(String s) {
+		List<String> possibleWords = new ArrayList<String>();
+		BasicTrieNode curNode = getNodeForInputString(s);
+		if(curNode != null)
+			getAllSuffixesFromCurrentNode(curNode, s, possibleWords);
+		for(String word : possibleWords) {
+			System.out.println(word);
+		}
+		return possibleWords;
+	}
+	
+	private void getAllSuffixesFromCurrentNode(BasicTrieNode curNode,
+			String s, List<String> possibleWords) {
+		for(BasicTrieNode node : curNode.getChildren()) {
+			String suffixSoFar = s+node.getValue();
+			if(node.isMarkerNode()) {
+				possibleWords.add(suffixSoFar);
+			}
+			if(node.getChildren() != null) {
+				getAllSuffixesFromCurrentNode(node, suffixSoFar, possibleWords);
+			}
+		}
+	}
+
+	public BasicTrieNode getNodeForInputString(String s) {
+		s = s.toLowerCase();
+		BasicTrieNode curNode = getRootNode();
+		if(curNode.getChildren() == null && s.length() > 0)
+			return null;
+		curNode = traverseTrieForInputString(s, curNode);
 		return curNode;
 	}
 
