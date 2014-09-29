@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.kash.application.ds.tries.BasicTrie;
 
@@ -25,10 +26,14 @@ public class Application {
 				trie.insertWord(line);
 			}
 			System.out.println("Created trie successfully.");
-			System.out.println("Lookup the word first:" + trie.lookupWord("first"));
 			fis.close();
 			is.close();
 			br.close();
+			List<String> possibleWords = trie.traverseTrieForPossibleWords("pep");
+			System.out.println(possibleWords.size());
+			for(String word : possibleWords) {
+				System.out.println(word + " - isWord? : " + trie.lookupWord(word));
+			}
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
 			e.printStackTrace();

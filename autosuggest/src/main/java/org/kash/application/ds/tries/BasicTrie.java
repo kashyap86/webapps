@@ -75,9 +75,6 @@ public class BasicTrie {
 		BasicTrieNode curNode = getNodeForInputString(s);
 		if(curNode != null)
 			getAllSuffixesFromCurrentNode(curNode, s, possibleWords);
-		for(String word : possibleWords) {
-			System.out.println(word);
-		}
 		return possibleWords;
 	}
 	
